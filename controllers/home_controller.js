@@ -1,3 +1,6 @@
 module.exports.home= (req,res)=>{
-    return res.end('<h1>Express is up for BeSocial</h1>');
+    console.log(req.cookies);
+    return res.render('home.ejs',{
+        title:"home"
+    });
 }
