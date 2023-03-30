@@ -1,10 +1,22 @@
-<html>
-    <head>
-        <title>
-            <%= title%>
-        </title>
-    </head>
-    <body>
-        <h1>BeSocial / <%= title %></h1>
-    </body>
-</html>
+<h1>
+    BeSocial / <%= title %>
+</h1>
+ 
+
+<section id="feed-posts">
+    <h4>Posts</h4>
+    <form action="/posts/create" id="new-post-form" method="POST">
+        <textarea name="content" id="" cols="30" rows="3" placeholder="Type here..."></textarea>
+        <input type="submit" value="Post">
+    </form>
+    <div id="post-list-container">
+        <ul>
+        <%for(let i of Posts){%>
+            <p>
+            <li><%=i.content%></li>
+            <small><%=i.user.name%></small>
+            </p>
+            <%}%>
+        </ul>
+        </div>
+</section>

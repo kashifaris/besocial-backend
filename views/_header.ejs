@@ -1,0 +1,25 @@
+<header>
+    <div class="header">
+        <h2>BeSocial</h2>
+    <ul>
+        <% if (locals.user) {%>
+            <li>
+                <a href="/users/profile">
+                    <%=user.name%>
+                </a>
+            </li>
+            <li>
+                <a href="/users/sign-out">signOut</a>
+            </li>
+            <%} else {%> 
+                <li>
+                    <a href="/users/login">login</a>
+                </li>
+                <li>
+                    <a href="/users/register">register</a>
+                </li>
+                <%}%>
+    </ul>
+</div>
+
+</header>

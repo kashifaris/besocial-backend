@@ -25,7 +25,7 @@ module.exports.create=(req,res)=>{
     }
     User.findOne({email: req.body.email})
     .then((user)=>{
-        console.log(user);
+        //if not alredy exist
         if(!user) {
             User.create(req.body)
             .then(result=>{
@@ -42,5 +42,14 @@ module.exports.create=(req,res)=>{
 
 //sign_in and create a session
 module.exports.createSession=(req, res)=>{
-    //TODO later
+    return res.redirect('/');
+}
+
+
+module.exports.destroySession=(req,res)=>{
+    req.logout((err)=>{
+        if(err)
+        return next(err);
+    });
+    return res.redirect('/');
 }
