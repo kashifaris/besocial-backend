@@ -1,5 +1,6 @@
 const Post = require("../models/post")
 
+
 module.exports.post=(req,res)=>{
     Post.create({
         content: req.body.content,
@@ -11,3 +12,5 @@ module.exports.post=(req,res)=>{
         return res.redirect('/');
     })
 }
+
+

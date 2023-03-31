@@ -11,11 +11,11 @@ module.exports.home= (req,res)=>{
 //    })
 
     //user of Posts to populated
-   Post.find({}).populate('user').exec()
+   Post.find({}).populate('user')
    .then(posts=>{
-    return res.render('home.ejs',{
-        title:"Besocial home",
-        Posts:posts
+    return res.render('home',{
+        title:"Home",
+        posts:posts
     });
 })
 
