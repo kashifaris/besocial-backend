@@ -6,6 +6,7 @@ const mongodb= require('mongodb');
 
 
 module.exports.create = async function(req, res){
+    //req.body coming from the form
     const id= (req.body.post).trim();
     console.log(mongoose.Types.ObjectId.isValid(id),id);
     
@@ -21,6 +22,7 @@ module.exports.create = async function(req, res){
             });
 
             post.comments.push(comment);
+            //to save changes in the database
             post.save();
 
             res.redirect('/');
@@ -30,4 +32,23 @@ module.exports.create = async function(req, res){
         return;
     }
     
+}
+
+
+module.exports.destroy= (req,res)=>{
+    Comment.findById(req.params.id)
+    .then((comment)=>{
+        if(comment.user == req.user.id)
+        {
+            const postId=comment.post;
+            Comment.deleteOne({_id:req.params.id})
+            .then((x)=>{
+            })
+            Post.findByIdAndUpdate(postId, {$pull: {comments:req.params.id}})
+            .then((p)=>{
+                return res.redirect('back');
+
+            })
+        }
+    })
 }

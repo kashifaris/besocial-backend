@@ -13,5 +13,7 @@
     .header ul li a {
       color: white;
       text-decoration: none;
-      font-size: medium;
-      font-weight: 500; }
+      font-size: larger;
+      font-weight: bold; }
+      .header ul li a :hover {
+        color: #fadd05; }

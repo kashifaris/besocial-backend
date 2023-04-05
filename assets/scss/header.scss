@@ -16,9 +16,13 @@
             a{
                 color: white;
                 text-decoration: none;
-                font-size: medium;
-                font-weight: 500;
+                font-size:larger;
+                font-weight: bold;
+                :hover{
+                    color: rgb(250, 221, 5);
+                }
             }
+
         }
     }
 }

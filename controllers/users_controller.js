@@ -1,9 +1,13 @@
 const User= require('../models/user');
 
 module.exports.profile=(req,res)=>{
-    res.render('userProfile',{
-        title:"User Profile"
-    });
+    User.findById(req.params.id)
+    .then((user)=>{
+       return res.render('userProfile',{
+            title:"User Profile",
+            profile_user:user
+        });
+    })
 }
 
 module.exports.signup=(req,res)=>{
@@ -42,14 +46,39 @@ module.exports.create=(req,res)=>{
 
 //sign_in and create a session
 module.exports.createSession=(req, res)=>{
+    req.flash('success', 'logged in successfully');
     return res.redirect('/');
 }
 
 
 module.exports.destroySession=(req,res)=>{
     req.logout((err)=>{
-        if(err)
-        return next(err);
+        if(err) return;
     });
+    req.flash('success', 'logged out successfull');
     return res.redirect('/');
+}
+
+// module.exports.update= (req,res)=>{
+//     console.log(req.body.email);
+//     User.findOne({email: req.body.email})
+//     .then((user)=>{
+//         user.name=req.body.name,
+//         user.password=req.body.password
+//         user.save();
+//         return res.redirect('back');
+//     })
+// }
+
+module.exports.update= (req,res)=>{
+    if(req.user.id == req.params.id){
+    User.findByIdAndUpdate(req.params.id,req.body)
+    .then((user)=>{
+        return res.redirect('back');
+    })
+    }
+    else
+    {
+        return res.status(401).send('Unautherized');
+    }
 }

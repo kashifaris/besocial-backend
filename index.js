@@ -9,6 +9,8 @@ const passport= require('passport');
 const passportLocal= require("./config/passport-local-startegy")
 const MongoStore= require('connect-mongo');
 const sassMiddleware=require('node-sass-middleware')
+const flash = require('connect-flash');
+const customMware = require('./config/flashMiddleware'); 
 
 
 app.use(sassMiddleware({
@@ -27,6 +29,9 @@ app.use(cookieParser());
 app.use(express.static("./assets"));
 
 app.use(expressLayouts);
+// extract style and scripts from sub pages into the layout
+app.set('layout extractStyles', true);
+app.set('layout extractScripts', true);
 
 //set up the view engine
 app.set('view engine','ejs');
@@ -48,6 +53,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
+
+//this uses the session
+app.use(flash());
+app.use(customMware.setFlash);
 
 //use express router
 app.use('/',require('./routes')); //by default fetches index.js
